@@ -1,0 +1,100 @@
+##Contenedores
+docker run -d "IMAGE" -crear el contenedor
+
+#ver contenedores activos
+docker ps
+
+#contenedores existentes en la pc
+docker ps -a
+
+#Eliminar contenedores
+docker rm "CONTAINER_ID"
+docker rm "CONTAINER_NAME"
+
+ -Varios contenedores a la vez
+docker rm "CONTAINER_ID" "CONTAINER_ID" 
+
+#Eliminar contenedores en ejecución
+docker rm -f "CONTAINER_ID"
+
+#Crear contenedor
+docker run --name "CONTAINER_NAME" "IMAGE"
+
+##Eliminar todos los contenedores
+docker rm $(docker ps --filter status=exited -q)
+
+##Renombrar container
+docker rename "CONTAINER_NAME" "NAME"
+
+
+##Imagénes 
+
+#Listar imagénes 
+docker images
+
+#Eliminar imagen con contenedores arriba
+docker rmi "IMAGE_ID"
+docker rmi -f "IMAGE_ID"
+docker rmi -f "NAME_IMAGE"
+
+docker rmi $(docker images)
+
+##Buscar images
+docker search ubuntu
+
+
+##Reinicio de contenedor 
+docker stop "CONTAINER_ID"
+docker start "CONTAINER_ID"
+docker restart "CONTAINER_ID"
+
+##ejecución de comandos con contenedores corriendo
+docker exec -it "CONTAINER_ID" sh --> abre una terminal shell
+
+##Logs para ver los contenedores
+
+docker logs -f "CONTAINER_ID"
+docker logs -f "CONTAINER_ID" --until
+
+##Comprimir imagenes 
+docker save postgres:latest | gzip > mypostgres.zip
+docker save postgres:latest | gzip > mypostgres.tar.gz
+docker save postgres:latest | gzip > /home/uriel/Documents/MyImages/Mypostgres.zip
+
+##Importar imagenes de un archivo compimido 
+docker load < "ARCHIVO.ZIP"
+
+##Estadisticas de los contenedores
+docker stats 
+
+
+
+docker run -d \
+--network todo-app --network-alias mysql \
+-v /home/uriel/Documents/multi-container/todo-mysql-data:/var/lib/mysql \
+-e MYSQL_ROOT_PASSWORD=my-secret \
+-e MYSQL_DATABASE=todos \
+mysql:5.7 
+
+
+
+#Introducir un comando a un container que ya esta corriendo
+#mysql -p -> comando de mysql
+docker exec -it ID_CONTAINER mysql -p
+
+
+#Crear una red
+docker network create "NOMBRE_RED"
+
+##Correr imagen con mysql dentro de una red
+docker run -dp 3000:3000 --network todo-app -e MYSQL_HOST=mysql \
+ -e MYSQL_USER=root \
+ -e MYSQL_PASSWORD=my-secret \
+ -e MYSQL_DB=todos \
+ urielch19/my_app:v2
+
+
+#Detener contenedores con composer 
+docker-compose up -d
+
+docker-compose down
