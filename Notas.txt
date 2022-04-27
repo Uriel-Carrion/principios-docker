@@ -40,6 +40,8 @@ docker rmi -f "NAME_IMAGE"
 docker rmi $(docker images)
 
 ##Buscar images
+
+docker build -t "NAME_IMAGE" .  -> ruta
 docker search ubuntu
 
 
@@ -98,3 +100,10 @@ docker run -dp 3000:3000 --network todo-app -e MYSQL_HOST=mysql \
 docker-compose up -d
 
 docker-compose down
+
+
+##Logs en Docker
+
+docker logs -t "CONTAINER_NAME"
+ docker logs -f "CONTAINER_NAME"
+
