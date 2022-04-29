@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - redis
+    restart:  unless-stopped
+    container_name: redis_container
+    
+
+networks:
+  redis:
+    driver: bridge
+    name: redis
+

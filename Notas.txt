@@ -29,6 +29,10 @@ docker rename "CONTAINER_NAME" "NAME"
 
 ##Imagénes 
 
+##Subir imagenes a docker hun
+docker tag "IMAGE_ID" "USER / "IMAGE:tag"
+docker push "TAG" -> example  - urielch19/maps-app-react
+
 #Listar imagénes 
 docker images
 
@@ -107,3 +111,5 @@ docker-compose down
 docker logs -t "CONTAINER_NAME"
  docker logs -f "CONTAINER_NAME"
 
+##Para monitorizar todos los contenedores
+docker stats $(docker inspect -f {{.Name}} $(docker ps -q))
